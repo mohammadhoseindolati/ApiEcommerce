@@ -45,6 +45,7 @@ class CategoryController extends ApiController
         $category = Category::create([
             'name' => $request->name ,
             'parent_id' => $request->parent_id ,
+            'description' => $request->description ,
         ]);
 
         DB::commit();
@@ -63,16 +64,42 @@ class CategoryController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $validator = Validator::make($request->all() , [
+            'name' => 'required',
+            'parent_id' => 'required|integer',
+            'description' => 'nullable'
+        ]);
+
+        if($validator->fails()){
+            return $this->errorResponse($validator->messages() , 422);
+        }
+
+        DB::beginTransaction() ;
+
+        $category->update([
+            'name' => $request->name ,
+            'parent_id' => $request->parent_id ,
+            'description' => $request->description ,
+        ]);
+
+        DB::commit();
+
+        return $this->successResponse( new CategoryResource($category) , 201) ;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        DB::beginTransaction() ;
+
+        $category->delete() ;
+
+        DB::commit();
+
+        return $this->successResponse(new CategoryResource($category) , 200) ;
     }
 }
