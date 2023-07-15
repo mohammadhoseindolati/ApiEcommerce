@@ -7,7 +7,6 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\BrandResource;
-use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Validator;
 
 class BrandController extends ApiController
