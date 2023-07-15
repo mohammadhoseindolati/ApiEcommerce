@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
-use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Nette\Utils\Image;
 
 class ProductController extends ApiController
 {
@@ -19,7 +17,13 @@ class ProductController extends ApiController
      */
     public function index()
     {
-        //
+        $products = Product::paginate(20);
+
+        return $this->successResponse([
+            'products' => ProductResource::collection($products->load('images')) ,
+            'links' => ProductResource::collection($products)->response()->getData()->links ,
+            'meta' => ProductResource::collection($products)->response()->getData()->meta ,
+        ], 200) ;
     }
 
     /**
@@ -52,7 +56,7 @@ class ProductController extends ApiController
         if ($request->has('images')){
             $fileNameImages = [] ;
             foreach ($request->images as $image) {
-                $fileImageName = Carbon::now()->microsecond() . '.' . $image->extension();
+                $fileImageName = Carbon::now()->microsecond . '.' . $image->extension();
                 $image->storeAs('images/products' , $fileImageName , 'public');
                 array_push( $fileNameImages, $fileImageName ) ;
             }
@@ -86,9 +90,9 @@ class ProductController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return $this->successResponse(new ProductResource($product->load('images')) , 200) ;
     }
 
     /**
