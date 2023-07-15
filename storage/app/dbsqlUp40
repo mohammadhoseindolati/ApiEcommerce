@@ -1,0 +1,289 @@
+
+/* Alter table in target */
+ALTER TABLE `assignments` 
+	CHANGE `sectionId` `sectionId` text  COLLATE utf8_general_ci NOT NULL after `classId` , 
+	CHANGE `AssignFile` `AssignFile` varchar(250)  COLLATE utf8_general_ci NOT NULL after `AssignDescription` ;
+
+/* Alter table in target */
+ALTER TABLE `assignments_answers` 
+	CHANGE `fileName` `fileName` varchar(250)  COLLATE utf8_general_ci NOT NULL after `userId` , 
+	CHANGE `userNotes` `userNotes` text  COLLATE utf8_general_ci NOT NULL after `fileName` ;
+
+/* Alter table in target */
+ALTER TABLE `attendance` 
+	CHANGE `subjectId` `subjectId` int(250)   NOT NULL after `classId` ;
+
+/* Alter table in target */
+ALTER TABLE `book_library` 
+	CHANGE `bookDescription` `bookDescription` text  COLLATE utf8_general_ci NOT NULL after `bookName` , 
+	CHANGE `bookAuthor` `bookAuthor` varchar(250)  COLLATE utf8_general_ci NOT NULL after `bookDescription` ;
+
+/* Alter table in target */
+ALTER TABLE `classes` 
+	CHANGE `dormitoryId` `dormitoryId` int(250)   NOT NULL after `classSubjects` ;
+
+/* Alter table in target */
+ALTER TABLE `events` 
+	CHANGE `eventDescription` `eventDescription` longtext  COLLATE utf8_general_ci NULL after `eventTitle` , 
+	ADD COLUMN `eventImage` text  COLLATE utf8_general_ci NOT NULL after `enentPlace` , 
+	ADD COLUMN `fe_active` int(1)   NOT NULL after `eventImage` , 
+	CHANGE `eventDate` `eventDate` varchar(250)  COLLATE utf8_general_ci NOT NULL after `fe_active` ;
+
+/* Create table in target */
+CREATE TABLE `fee_discount`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`discount_name` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`dicount_description` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`discount_code` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`discount_type` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`discount_value` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`discount_status` int(1) NOT NULL  , 
+	`discount_assignment` longtext COLLATE utf8_general_ci NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Create table in target */
+CREATE TABLE `frontend_pages`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`page_title` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_permalink` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_content` longtext COLLATE utf8_general_ci NOT NULL  , 
+	`page_status` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_visibility` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_navbar_visible` int(1) NOT NULL  , 
+	`page_password` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_publish_date` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_publish_specific_date` int(250) NOT NULL  , 
+	`page_template` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`page_feat_image` text COLLATE utf8_general_ci NOT NULL  , 
+	`page_slider_images` longtext COLLATE utf8_general_ci NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Create table in target */
+CREATE TABLE `homeworks`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`classId` text COLLATE utf8_general_ci NOT NULL  , 
+	`sectionId` text COLLATE utf8_general_ci NOT NULL  , 
+	`subjectId` int(250) NOT NULL  , 
+	`teacherId` int(250) NOT NULL  , 
+	`homeworkTitle` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`homeworkDescription` longtext COLLATE utf8_general_ci NULL  , 
+	`homeworkFile` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`homeworkDate` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`homeworkSubmissionDate` int(250) NOT NULL  , 
+	`homeworkEvaluationDate` int(250) NOT NULL  , 
+	`studentsCompleted` longtext COLLATE utf8_general_ci NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Alter table in target */
+ALTER TABLE `hostel` 
+	CHANGE `hostelAddress` `hostelAddress` text  COLLATE utf8_general_ci NOT NULL after `hostelType` , 
+	CHANGE `hostelManager` `hostelManager` text  COLLATE utf8_general_ci NOT NULL after `hostelAddress` , 
+	CHANGE `hostelNotes` `hostelNotes` text  COLLATE utf8_general_ci NOT NULL after `hostelManager` ;
+
+/* Alter table in target */
+ALTER TABLE `hostel_cat` 
+	CHANGE `catNotes` `catNotes` text  COLLATE utf8_general_ci NOT NULL after `catFees` ;
+
+/* Create table in target */
+CREATE TABLE `income`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`incomeDate` int(250) NOT NULL  , 
+	`incomeTitle` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`incomeAmount` int(250) NOT NULL  , 
+	`incomeCategory` int(250) NOT NULL  , 
+	`incomeImage` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`incomeNotes` text COLLATE utf8_general_ci NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Create table in target */
+CREATE TABLE `income_cat`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`cat_title` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`cat_desc` text COLLATE utf8_general_ci NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Alter table in target */
+ALTER TABLE `languages` 
+	CHANGE `languageUniversal` `languageUniversal` varchar(10)  COLLATE utf8_general_ci NOT NULL after `languageTitle` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Alter table in target */
+ALTER TABLE `mailsms` 
+	CHANGE `messageData` `messageData` longtext  COLLATE utf8_general_ci NOT NULL after `mailType` ;
+
+/* Alter table in target */
+ALTER TABLE `mailsms_templates` 
+	CHANGE `templateTitle` `templateTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` , 
+	CHANGE `templateMail` `templateMail` longtext  COLLATE utf8_general_ci NULL after `templateTitle` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Alter table in target */
+ALTER TABLE `media_albums` 
+	CHANGE `albumDescription` `albumDescription` text  COLLATE utf8_general_ci NOT NULL after `albumTitle` , 
+	CHANGE `albumImage` `albumImage` varchar(250)  COLLATE utf8_general_ci NOT NULL after `albumDescription` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Alter table in target */
+ALTER TABLE `media_items` 
+	CHANGE `mediaURLThumb` `mediaURLThumb` varchar(250)  COLLATE utf8_general_ci NULL after `mediaURL` , 
+	CHANGE `mediaDescription` `mediaDescription` text  COLLATE utf8_general_ci NOT NULL after `mediaTitle` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Create table in target */
+CREATE TABLE `mm_uploads`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`user_id` int(250) NOT NULL  , 
+	`file_orig_name` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`file_uploaded_name` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`file_size` int(250) NOT NULL  , 
+	`file_mime` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`file_uploaded_time` int(250) NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Alter table in target */
+ALTER TABLE `mob_notifications` 
+	CHANGE `notifToIds` `notifToIds` text  COLLATE utf8_general_ci NOT NULL after `notifTo` ;
+
+/* Alter table in target */
+ALTER TABLE `newsboard` 
+	CHANGE `newsText` `newsText` longtext  COLLATE utf8_general_ci NOT NULL after `newsTitle` , 
+	ADD COLUMN `newsImage` varchar(250)  COLLATE utf8_general_ci NOT NULL after `newsDate` , 
+	ADD COLUMN `fe_active` int(1)   NOT NULL after `newsImage` , 
+	CHANGE `creationDate` `creationDate` int(250)   NOT NULL after `fe_active` ;
+
+/* Alter table in target */
+ALTER TABLE `online_exams` 
+	CHANGE `sectionId` `sectionId` text  COLLATE utf8_general_ci NOT NULL after `examClass` , 
+	CHANGE `examDegreeSuccess` `examDegreeSuccess` int(250)   NOT NULL after `examTimeMinutes` ;
+
+/* Alter table in target */
+ALTER TABLE `payments` 
+	CHANGE `paymentTitle` `paymentTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` , 
+	CHANGE `paymentDescription` `paymentDescription` text  COLLATE utf8_general_ci NULL after `paymentTitle` , 
+	ADD COLUMN `paymentDiscount` float   NOT NULL after `paymentAmount` , 
+	ADD COLUMN `paymentDiscounted` float   NOT NULL after `paymentDiscount` , 
+	CHANGE `paidAmount` `paidAmount` float   NOT NULL DEFAULT 0 after `paymentDiscounted` , 
+	CHANGE `paymentSuccessDetails` `paymentSuccessDetails` text  COLLATE utf8_general_ci NULL after `paymentUniqid` , 
+	ADD COLUMN `discount_id` int(250)   NOT NULL after `paidTime` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Create table in target */
+CREATE TABLE `payroll_history`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`userid` int(250) NOT NULL  , 
+	`pay_by_userid` int(250) NOT NULL  , 
+	`salary_type` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`salary_value` decimal(10,0) NOT NULL  , 
+	`hour_overtime` decimal(10,0) NOT NULL  , 
+	`hour_count` decimal(10,0) NOT NULL  , 
+	`pay_month` int(250) NOT NULL  , 
+	`pay_year` int(250) NOT NULL  , 
+	`pay_date` int(250) NOT NULL  , 
+	`pay_amount` decimal(10,0) NOT NULL  , 
+	`pay_method` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`pay_comments` text COLLATE utf8_general_ci NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Create table in target */
+CREATE TABLE `payroll_hourly_base`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`salary_title` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`hourly_cost` decimal(10,0) NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Create table in target */
+CREATE TABLE `payroll_salary_base`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`salary_title` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`salary_basic` decimal(10,0) NOT NULL  , 
+	`hour_overtime` decimal(10,0) NOT NULL  , 
+	`salary_allowence` longtext COLLATE utf8_general_ci NOT NULL  , 
+	`salary_deduction` longtext COLLATE utf8_general_ci NOT NULL  , 
+	`net_salary` decimal(10,0) NOT NULL  , 
+	`gross_salary` decimal(10,0) NOT NULL  , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Alter table in target */
+ALTER TABLE `polls` 
+	CHANGE `pollTitle` `pollTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` , 
+	CHANGE `pollOptions` `pollOptions` text  COLLATE utf8_general_ci NOT NULL after `pollTitle` , 
+	CHANGE `pollTarget` `pollTarget` varchar(10)  COLLATE utf8_general_ci NOT NULL after `pollOptions` , 
+	CHANGE `userVoted` `userVoted` text  COLLATE utf8_general_ci NOT NULL after `pollStatus` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Alter table in target */
+ALTER TABLE `settings` 
+	CHANGE `fieldValue` `fieldValue` longtext  COLLATE utf8_general_ci NOT NULL after `fieldName` ;
+
+/* Alter table in target */
+ALTER TABLE `static_pages` 
+	CHANGE `pageTitle` `pageTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` , 
+	CHANGE `pageContent` `pageContent` longtext  COLLATE utf8_general_ci NOT NULL after `pageTitle` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Alter table in target */
+ALTER TABLE `study_material` 
+	CHANGE `sectionId` `sectionId` text  COLLATE utf8_general_ci NOT NULL after `class_id` , 
+	CHANGE `material_description` `material_description` text  COLLATE utf8_general_ci NOT NULL after `material_title` , 
+	CHANGE `material_file` `material_file` varchar(250)  COLLATE utf8_general_ci NOT NULL after `material_description` ;
+
+/* Alter table in target */
+ALTER TABLE `transportation` 
+	CHANGE `transportTitle` `transportTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` , 
+	CHANGE `transportDescription` `transportDescription` text  COLLATE utf8_general_ci NULL after `transportTitle` , 
+	CHANGE `transportDriverContact` `transportDriverContact` text  COLLATE utf8_general_ci NULL after `transportDescription` , 
+	CHANGE `transportFare` `transportFare` varchar(250)  COLLATE utf8_general_ci NOT NULL after `transportDriverContact` , DEFAULT CHARSET='utf8', COLLATE ='utf8_general_ci' ;
+
+/* Alter table in target */
+ALTER TABLE `users` 
+	CHANGE `email` `email` varchar(200)  COLLATE utf8_general_ci NOT NULL after `username` , 
+	CHANGE `remember_token` `remember_token` varchar(250)  COLLATE utf8_general_ci NOT NULL after `password` , 
+	CHANGE `auth_session` `auth_session` text  COLLATE utf8_general_ci NOT NULL after `studentRollId` , 
+	CHANGE `studentAcademicYear` `studentAcademicYear` int(250)   NOT NULL after `mobileNo` , 
+	CHANGE `parentOf` `parentOf` text  COLLATE utf8_general_ci NOT NULL after `parentProfession` , 
+	CHANGE `photo` `photo` varchar(250)  COLLATE utf8_general_ci NULL DEFAULT '' after `parentOf` , 
+	CHANGE `isLeaderBoard` `isLeaderBoard` text  COLLATE utf8_general_ci NOT NULL after `photo` , 
+	CHANGE `restoreUniqId` `restoreUniqId` varchar(250)  COLLATE utf8_general_ci NOT NULL after `isLeaderBoard` , 
+	CHANGE `transport` `transport` int(250)   NOT NULL after `restoreUniqId` , 
+	CHANGE `hostel` `hostel` int(250)   NOT NULL after `transport` , 
+	ADD COLUMN `user_position` varchar(250)  COLLATE utf8_general_ci NOT NULL after `medical` , 
+	CHANGE `defLang` `defLang` int(10)   NOT NULL DEFAULT 0 after `user_position` , 
+	CHANGE `defTheme` `defTheme` varchar(20)  COLLATE utf8_general_ci NOT NULL after `defLang` , 
+	ADD COLUMN `salary_type` varchar(250)  COLLATE utf8_general_ci NOT NULL after `defTheme` , 
+	ADD COLUMN `salary_base_id` int(250)   NOT NULL after `salary_type` , 
+	CHANGE `comVia` `comVia` text  COLLATE utf8_general_ci NOT NULL after `salary_base_id` , 
+	ADD COLUMN `biometric_id` int(250)   NOT NULL after `comVia` , 
+	ADD COLUMN `account_active` int(1)   NOT NULL DEFAULT 1 after `biometric_id` , 
+	CHANGE `updated_at` `updated_at` date   NOT NULL after `account_active` , 
+	CHANGE `customPermissions` `customPermissions` text  COLLATE utf8_general_ci NOT NULL after `customPermissionsType` ;
+
+
+INSERT INTO `settings` (`fieldName`, `fieldValue`) VALUES
+('https_enabled', '0'),
+('country', 'US'),
+('wysiwyg_type', 'simple'),
+('cms_active', '1'),
+('cms_template', 'default'),
+('cms_facebook', ''),
+('cms_google', ''),
+('cms_twitter', ''),
+('cms_footer_right', '<p>Template design by <a href=\"https://bootstrapious.com/free-templates\">Bootstrapious Templates </a></p>'),
+('cms_footer_left', '&copy; 2018. Your company / name goes here'),
+('biometric_device_ip', ''),
+('biometric_device_status', ''),
+('cms_theme', 'red');
+
+UPDATE `payments` SET `paymentDiscounted`=`paymentAmount`;
+
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1,0 +1,122 @@
+--
+-- Table structure for table `mobNotifications`
+--
+
+CREATE TABLE IF NOT EXISTS `mobNotifications` (
+  `id` int(250) NOT NULL,
+  `notifTo` text NOT NULL,
+  `notifToIds` text NOT NULL,
+  `notifData` text NOT NULL,
+  `notifDate` int(250) NOT NULL,
+  `notifSender` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* Alter table in target */
+ALTER TABLE `assignmentsAnswers`
+	CHANGE `userNotes` `userNotes` text  COLLATE utf8_general_ci NOT NULL after `fileName` ;
+
+/* Alter table in target */
+ALTER TABLE `attendance`
+	CHANGE `subjectId` `subjectId` int(250)   NOT NULL after `classId` ;
+
+/* Alter table in target */
+ALTER TABLE `bookLibrary`
+	CHANGE `bookDescription` `bookDescription` text  COLLATE utf8_general_ci NOT NULL after `bookName` ,
+	CHANGE `bookAuthor` `bookAuthor` varchar(250)  COLLATE utf8_general_ci NOT NULL after `bookDescription` ;
+
+/* Alter table in target */
+ALTER TABLE `classes`
+	CHANGE `dormitoryId` `dormitoryId` int(250)   NOT NULL after `classSubjects` ;
+
+/* Alter table in target */
+ALTER TABLE `examMarks`
+	CHANGE `attendanceMark` `attendanceMark` varchar(250)  COLLATE utf8_general_ci NOT NULL after `examMark` ,
+	CHANGE `markComments` `markComments` text  COLLATE utf8_general_ci NOT NULL after `attendanceMark` ;
+
+/* Alter table in target */
+ALTER TABLE `expenses`
+	CHANGE `expenseNotes` `expenseNotes` text  COLLATE utf8_general_ci NOT NULL after `expenseAmount` ;
+
+/* Alter table in target */
+ALTER TABLE `feeType`
+	CHANGE `feeNotes` `feeNotes` text  COLLATE utf8_general_ci NOT NULL after `feeDefault` ;
+
+/* Alter table in target */
+ALTER TABLE `hostel`
+	CHANGE `hostelAddress` `hostelAddress` text  COLLATE utf8_general_ci NOT NULL after `hostelType` ,
+	CHANGE `hostelManager` `hostelManager` text  COLLATE utf8_general_ci NOT NULL after `hostelAddress` ,
+	CHANGE `hostelNotes` `hostelNotes` text  COLLATE utf8_general_ci NOT NULL after `hostelManager` ;
+
+/* Alter table in target */
+ALTER TABLE `hostelCat`
+	CHANGE `catNotes` `catNotes` text  COLLATE utf8_general_ci NOT NULL after `catFees` ;
+
+/* Alter table in target */
+ALTER TABLE `mediaAlbums`
+	CHANGE `albumDescription` `albumDescription` text  COLLATE utf8_general_ci NOT NULL after `albumTitle` ,
+	CHANGE `albumImage` `albumImage` varchar(250)  COLLATE utf8_general_ci NOT NULL after `albumDescription` ;
+
+/* Alter table in target */
+ALTER TABLE `mediaItems`
+	CHANGE `mediaDescription` `mediaDescription` text  COLLATE utf8_general_ci NOT NULL after `mediaTitle` ;
+
+/* Alter table in target */
+ALTER TABLE `mobNotifications`
+	CHANGE `notifToIds` `notifToIds` text  COLLATE utf8_general_ci NOT NULL after `notifTo` ;
+
+/* Alter table in target */
+ALTER TABLE `onlineExams`
+	CHANGE `sectionId` `sectionId` text  COLLATE utf8_general_ci NOT NULL after `examClass` ,
+	CHANGE `examDegreeSuccess` `examDegreeSuccess` int(250)   NOT NULL after `examTimeMinutes` ;
+
+/* Alter table in target */
+ALTER TABLE `payments`
+	CHANGE `paymentUniqid` `paymentUniqid` varchar(250)  COLLATE latin1_swedish_ci NOT NULL after `paymentDate` ,
+	CHANGE `paymentSuccessDetails` `paymentSuccessDetails` text  COLLATE latin1_swedish_ci NOT NULL after `paymentUniqid` ;
+
+/* Alter table in target */
+ALTER TABLE `polls`
+	CHANGE `userVoted` `userVoted` text  COLLATE latin1_swedish_ci NOT NULL after `pollStatus` ;
+
+/* Alter table in target */
+ALTER TABLE `studyMaterial`
+	CHANGE `sectionId` `sectionId` text  COLLATE utf8_general_ci NOT NULL after `class_id` ,
+	CHANGE `material_description` `material_description` text  COLLATE utf8_general_ci NOT NULL after `material_title` ,
+	CHANGE `material_file` `material_file` varchar(250)  COLLATE utf8_general_ci NOT NULL after `material_description` ;
+
+/* Alter table in target */
+ALTER TABLE `users`
+	CHANGE `email` `email` varchar(200)  COLLATE utf8_general_ci NOT NULL after `username` ,
+	CHANGE `remember_token` `remember_token` varchar(250)  COLLATE utf8_general_ci NOT NULL after `password` ,
+	CHANGE `auth_session` `auth_session` text  COLLATE utf8_general_ci NOT NULL after `studentRollId` ,
+	CHANGE `studentAcademicYear` `studentAcademicYear` int(250)   NOT NULL after `mobileNo` ,
+	CHANGE `parentOf` `parentOf` text  COLLATE utf8_general_ci NOT NULL after `parentProfession` ,
+	CHANGE `photo` `photo` varchar(250)  COLLATE utf8_general_ci NULL DEFAULT '' after `parentOf` ,
+	CHANGE `isLeaderBoard` `isLeaderBoard` text  COLLATE utf8_general_ci NOT NULL after `photo` ,
+	CHANGE `restoreUniqId` `restoreUniqId` varchar(250)  COLLATE utf8_general_ci NOT NULL after `isLeaderBoard` ,
+	CHANGE `transport` `transport` int(250)   NOT NULL after `restoreUniqId` ,
+	CHANGE `hostel` `hostel` int(250)   NOT NULL after `transport` ,
+	CHANGE `defTheme` `defTheme` varchar(20)  COLLATE utf8_general_ci NOT NULL after `defLang` ,
+	CHANGE `customPermissionsType` `customPermissionsType` varchar(10)  COLLATE utf8_general_ci NOT NULL after `defTheme` ,
+	CHANGE `customPermissions` `customPermissions` text  COLLATE utf8_general_ci NOT NULL after `customPermissionsType` ;
+
+ALTER TABLE academicYear RENAME academic_year;
+ALTER TABLE assignmentsAnswers RENAME assignments_answers;
+ALTER TABLE bookLibrary RENAME book_library;
+ALTER TABLE classSchedule RENAME class_schedule;
+ALTER TABLE examMarks RENAME exam_marks;
+ALTER TABLE examsList RENAME exams_list;
+ALTER TABLE feeAllocation RENAME fee_allocation;
+ALTER TABLE feeType RENAME fee_type;
+ALTER TABLE gradeLevels RENAME grade_levels;
+ALTER TABLE hostelCat RENAME hostel_cat;
+ALTER TABLE mailsmsTemplates RENAME mailsms_templates;
+ALTER TABLE mediaAlbums RENAME media_albums;
+ALTER TABLE mediaItems RENAME media_items;
+ALTER TABLE messagesList RENAME messages_list;
+ALTER TABLE mobNotifications RENAME mob_notifications;
+ALTER TABLE onlineExams RENAME online_exams;
+ALTER TABLE onlineExamsGrades RENAME online_exams_grades;
+ALTER TABLE staticPages RENAME static_pages;
+ALTER TABLE studentAcademicYears RENAME student_academic_years;
+ALTER TABLE studyMaterial RENAME study_material;

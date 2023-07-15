@@ -1,0 +1,24 @@
+
+/* Create table in target */
+CREATE TABLE `meetings`(
+	`id` int(250) NOT NULL  auto_increment , 
+	`conference_title` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`conference_desc` text COLLATE utf8_general_ci NULL  , 
+	`scheduled_date` int(250) NOT NULL  , 
+	`scheduled_time_start_total` int(250) NOT NULL  , 
+	`scheduled_time_end_total` int(250) NOT NULL  , 
+	`conference_duration` int(250) NOT NULL  , 
+	`created_by` int(250) NOT NULL  , 
+	`conference_host` longtext COLLATE utf8_general_ci NOT NULL  , 
+	`conference_target_type` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`conference_target_details` text COLLATE utf8_general_ci NOT NULL  , 
+	`meeting_id` varchar(250) COLLATE utf8_general_ci NOT NULL  , 
+	`meeting_metadata` longtext COLLATE utf8_general_ci NOT NULL  , 
+	`conference_status` int(1) NOT NULL  DEFAULT 0 , 
+	PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+INSERT INTO `settings` (`fieldName`, `fieldValue`) VALUES
+('zoomApiKey', ''),
+('zoomApiSecret', '');

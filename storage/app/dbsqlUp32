@@ -1,0 +1,15 @@
+ALTER TABLE `users` 
+	ADD COLUMN `firebase_token` longtext  COLLATE utf8_general_ci NOT NULL after `customPermissions` ;
+
+/* Alter table in target */
+ALTER TABLE `payments` 
+	ADD COLUMN `dueNotified` int(1)   NOT NULL DEFAULT 0 after `dueDate` ;
+
+INSERT INTO `settings` (`fieldName`, `fieldValue`) VALUES
+('calendarOffset', '0'),
+('firebase_apikey', ''),
+('dueInvoicesNotif', 'mailsms'),
+('dueInvoicesNotifTo', 'both');
+
+INSERT INTO `mailsms_templates` ( `templateTitle`, `templateMail`, `templateSMS`, `templateVars`) VALUES
+('Due Invoice', '<p>Hello {name},</p>\n\n<p>Invoice {invoice_id} is due.</p>\n\n<p>Invoice details : {invoice_details}</p>\n\n<p>Amount : {invoice_amount}</p>\n\n<p>Invoice Date : {invoice_date}</p>\n', 'Invoice {invoice_id} is due with amount {invoice_amount}', NULL);
