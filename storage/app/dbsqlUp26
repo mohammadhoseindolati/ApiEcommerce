@@ -1,0 +1,33 @@
+INSERT INTO `settings` ( `fieldName`, `fieldValue`) VALUES ('allowTeachersMailSMS', 'both');
+
+/* Alter table in target */
+ALTER TABLE `exam_marks`
+	CHANGE `examMark` `examMark` text  COLLATE utf8_general_ci NOT NULL after `studentId` ,
+	ADD COLUMN `totalMarks` varchar(250)  COLLATE utf8_general_ci NOT NULL after `examMark` ,
+	CHANGE `markComments` `markComments` text  COLLATE utf8_general_ci NULL after `totalMarks`;
+
+/* Alter table in target */
+ALTER TABLE `exams_list`
+	ADD COLUMN `examClasses` text  COLLATE utf8_general_ci NOT NULL after `examDate` ,
+	ADD COLUMN `examMarksheetColumns` text  COLLATE utf8_general_ci NOT NULL after `examClasses` ,
+	CHANGE `examAcYear` `examAcYear` int(250)   NOT NULL after `examMarksheetColumns` ;
+
+/* Alter table in target */
+ALTER TABLE `expenses`
+	ADD COLUMN `expenseImage` varchar(250)  COLLATE utf8_general_ci NOT NULL after `expenseAmount` ,
+	CHANGE `expenseNotes` `expenseNotes` text  COLLATE utf8_general_ci NULL after `expenseImage` ;
+
+/* Alter table in target */
+ALTER TABLE `fee_allocation`
+	ADD COLUMN `allocationTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` ,
+	CHANGE `allocationType` `allocationType` varchar(10)  COLLATE utf8_general_ci NOT NULL after `allocationTitle` ,
+	ADD COLUMN `allocationWhen` varchar(100)  COLLATE utf8_general_ci NOT NULL after `allocationValues` ,
+	ADD COLUMN `allocationDate` varchar(250)  COLLATE utf8_general_ci NOT NULL after `allocationWhen` ,
+	ADD COLUMN `allocationRec` varchar(250)  COLLATE utf8_general_ci NOT NULL after `allocationDate` ,
+	ADD COLUMN `isProcessed` int(1)   NOT NULL DEFAULT 0 after `allocationRec` ;
+
+/* Alter table in target */
+ALTER TABLE `users`
+	ADD COLUMN `medical` longtext  COLLATE utf8_general_ci NOT NULL after `hostel` ,
+	CHANGE `defLang` `defLang` int(10)   NOT NULL DEFAULT 0 after `medical` ;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

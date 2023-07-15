@@ -1,0 +1,45 @@
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+
+/* Alter table in target */
+ALTER TABLE `assignments`
+	ADD COLUMN `sectionId` text  COLLATE utf8_general_ci NOT NULL after `classId` ,
+	CHANGE `subjectId` `subjectId` int(250)   NOT NULL after `sectionId` ;
+
+/* Alter table in target */
+ALTER TABLE `mailsmsTemplates`
+	CHANGE `templateTitle` `templateTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `id` ,
+	CHANGE `templateMail` `templateMail` text  COLLATE utf8_general_ci NOT NULL after `templateTitle` ,
+	CHANGE `templateSMS` `templateSMS` text  COLLATE utf8_general_ci NOT NULL after `templateMail` ,
+	CHANGE `templateVars` `templateVars` text  COLLATE utf8_general_ci NOT NULL after `templateSMS` ;
+
+/* Alter table in target */
+ALTER TABLE `onlineExams`
+	ADD COLUMN `sectionId` text  COLLATE utf8_general_ci NOT NULL after `examClass` ,
+	CHANGE `examTeacher` `examTeacher` int(250)   NOT NULL after `sectionId` ;
+
+/* Alter table in target */
+ALTER TABLE `polls`
+	CHANGE `pollOptions` `pollOptions` text  COLLATE utf8_general_ci NOT NULL after `pollTitle` ;
+
+/* Alter table in target */
+ALTER TABLE `studentAcademicYears`
+	ADD COLUMN `sectionId` int(250)   NOT NULL DEFAULT 0 after `classId` ;
+
+/* Alter table in target */
+ALTER TABLE `studyMaterial`
+	ADD COLUMN `sectionId` text  COLLATE utf8_general_ci NOT NULL after `class_id` ,
+	CHANGE `subject_id` `subject_id` int(250)   NOT NULL after `sectionId` ;
+
+/* Alter table in target */
+ALTER TABLE `subject`
+	CHANGE `teacherId` `teacherId` text  COLLATE utf8_general_ci NOT NULL after `subjectTitle` ;
+
+/* Alter table in target */
+ALTER TABLE `users`
+	ADD COLUMN `studentSection` int(250)   NOT NULL DEFAULT 0 after `studentClass` ,
+	CHANGE `parentProfession` `parentProfession` varchar(250)  COLLATE utf8_general_ci NULL after `studentSection` ;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+
+INSERT INTO `settings` (`fieldName`, `fieldValue`) VALUES
+( 'dateformat', 'm/d/Y'),
+( 'enableSections', '0');

@@ -1,0 +1,151 @@
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+
+/* Create table in target */
+CREATE TABLE `academicYear`(
+	`id` int(250) NOT NULL  auto_increment ,
+	`yearTitle` varchar(250) COLLATE utf8_general_ci NOT NULL  ,
+	`isDefault` int(1) NOT NULL  DEFAULT 0 ,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+INSERT INTO `academicYear` (`yearTitle`, `isDefault`) VALUES ('First Year', '1');
+
+/* Alter table in target */
+ALTER TABLE `assignments`
+	CHANGE `AssignDescription` `AssignDescription` text  COLLATE utf8_general_ci NULL after `AssignTitle` ;
+
+/* Create table in target */
+CREATE TABLE `assignmentsAnswers`(
+	`id` int(250) NOT NULL  auto_increment ,
+	`assignmentId` int(250) NOT NULL  ,
+	`userId` int(250) NOT NULL  ,
+	`fileName` varchar(250) COLLATE utf8_general_ci NOT NULL  ,
+	`userNotes` text COLLATE utf8_general_ci NOT NULL  ,
+	`userTime` int(250) NOT NULL  ,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Alter table in target */
+ALTER TABLE `classes`
+	ADD COLUMN `classAcademicYear` int(250)   NOT NULL DEFAULT 1 after `classTeacher` ,
+	ADD COLUMN `classSubjects` text  COLLATE utf8_general_ci NOT NULL after `classAcademicYear` ,
+	CHANGE `dormitoryId` `dormitoryId` int(250)   NOT NULL after `classSubjects` ;
+
+/* Alter table in target */
+ALTER TABLE `examsList`
+	ADD COLUMN `examAcYear` int(250)   NOT NULL  DEFAULT 1 after `examDate` ;
+
+/* Alter table in target */
+ALTER TABLE `languages`
+	CHANGE `languageTitle` `languageTitle` text  COLLATE utf8_general_ci NOT NULL after `id` ,
+	CHANGE `languagePhrases` `languagePhrases` longtext  COLLATE utf8_general_ci NOT NULL after `languageTitle` ;
+
+/* Alter table in target */
+ALTER TABLE `mailsms`
+	CHANGE `mailTo` `mailTo` text  COLLATE utf8_general_ci NOT NULL after `id` ;
+
+/* Alter table in target */
+ALTER TABLE `mediaItems`
+	ADD COLUMN `mediaType` int(1)   NOT NULL DEFAULT 0 after `albumId` ,
+	CHANGE `mediaURL` `mediaURL` varchar(250)  COLLATE utf8_general_ci NOT NULL after `mediaType` ,
+	ADD COLUMN `mediaURLThumb` varchar(250)  COLLATE latin1_swedish_ci NULL after `mediaURL` ,
+	CHANGE `mediaTitle` `mediaTitle` varchar(250)  COLLATE utf8_general_ci NOT NULL after `mediaURLThumb` ;
+
+/* Create table in target */
+CREATE TABLE `migrations`(
+	`migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL  ,
+	`batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_unicode_ci';
+
+INSERT INTO `migrations` (`migration`, `batch`) VALUES ('2013_05_12_014954_create_auth_token_table', 1);
+
+
+/* Alter table in target */
+ALTER TABLE `onlineExams`
+	ADD COLUMN `exAcYear` int(250)   NOT NULL  DEFAULT 1 after `examDate` ,
+	CHANGE `ExamEndDate` `ExamEndDate` varchar(250)  COLLATE utf8_general_ci NOT NULL after `exAcYear` ,
+	ADD COLUMN `examTimeMinutes` int(250)   NOT NULL DEFAULT 0 after `ExamEndDate` ,
+	CHANGE `ExamShowGrade` `ExamShowGrade` int(1)   NOT NULL DEFAULT 0 after `examTimeMinutes` ;
+
+/* Alter table in target */
+ALTER TABLE `onlineExamsGrades`
+	CHANGE `examQuestionsAnswers` `examQuestionsAnswers` text  COLLATE utf8_general_ci NULL after `studentId` ,
+	CHANGE `examGrade` `examGrade` int(250)   NULL after `examQuestionsAnswers` ;
+
+/* Alter table in target */
+ALTER TABLE `payments`
+	CHANGE `paymentDescription` `paymentDescription` text  COLLATE latin1_swedish_ci NULL after `paymentTitle` ;
+
+/* Create table in target */
+CREATE TABLE `studentAcademicYears`(
+	`id` int(250) NOT NULL  auto_increment ,
+	`studentId` int(250) NOT NULL  ,
+	`academicYearId` int(250) NOT NULL DEFAULT 1 ,
+	`classId` int(250) NOT NULL  ,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+
+/* Create table in target */
+CREATE TABLE `studyMaterial`(
+	`id` int(250) NOT NULL  auto_increment ,
+	`class_id` text COLLATE utf8_general_ci NOT NULL  ,
+	`subject_id` int(250) NOT NULL  ,
+	`teacher_id` int(250) NOT NULL  ,
+	`material_title` varchar(250) COLLATE utf8_general_ci NOT NULL  ,
+	`material_description` text COLLATE utf8_general_ci NOT NULL  ,
+	`material_file` varchar(250) COLLATE utf8_general_ci NOT NULL  ,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+/* Create table in target */
+CREATE TABLE `ta_auth_tokens`(
+	`auth_identifier` int(11) NOT NULL  ,
+	`public_key` varchar(96) COLLATE utf8_unicode_ci NOT NULL  ,
+	`private_key` varchar(96) COLLATE utf8_unicode_ci NOT NULL  ,
+	`created_at` timestamp NOT NULL  DEFAULT '0000-00-00 00:00:00' ,
+	`updated_at` timestamp NOT NULL  DEFAULT '0000-00-00 00:00:00' ,
+	PRIMARY KEY (`auth_identifier`,`public_key`,`private_key`)
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_unicode_ci';
+
+
+/* Alter table in target */
+ALTER TABLE `transportation`
+	CHANGE `transportDescription` `transportDescription` text  COLLATE latin1_swedish_ci NULL after `transportTitle` ,
+	CHANGE `transportDriverContact` `transportDriverContact` text  COLLATE latin1_swedish_ci NULL after `transportDescription` ;
+
+/* Alter table in target */
+ALTER TABLE `users`
+	ADD COLUMN `studentAcademicYear` int(250)   NOT NULL DEFAULT 1 after `mobileNo` ,
+	CHANGE `studentClass` `studentClass` int(250)   NULL DEFAULT 0 after `studentAcademicYear` ,
+	ADD COLUMN `defTheme` varchar(20)  COLLATE utf8_general_ci NOT NULL after `defLang` ;
+
+/* Create table in target */
+CREATE TABLE `vacation`(
+	`id` int(250) NOT NULL  auto_increment ,
+	`userid` int(250) NOT NULL  ,
+	`vacDate` varchar(250) COLLATE utf8_general_ci NOT NULL  ,
+	`acYear` int(250) NOT NULL  ,
+	`role` varchar(10) COLLATE utf8_general_ci NOT NULL  ,
+	`acceptedVacation` int(1) NULL  DEFAULT -1 ,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='utf8' COLLATE='utf8_general_ci';
+
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+
+INSERT INTO `settings` (`fieldName`, `fieldValue`) VALUES
+( 'currency_code', 'USD'),
+( 'currency_symbol', '$'),
+( 'studentVacationDays', '100'),
+( 'teacherVacationDays', '100'),
+( 'daysWeekOff', '["5","6"]'),
+( 'officialVacationDay', '[]'),
+( 'attendanceOnMarksheet', '1'),
+( 'layoutColorUserChange', '1'),
+( 'siteLogo', 'siteName'),
+( 'siteLogoAdditional', '');
+
+UPDATE `settings` SET `fieldValue`='skin-green' where `settings`.`fieldName`='layoutColor';
+
+
