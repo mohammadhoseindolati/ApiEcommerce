@@ -1,1 +1,0 @@
-INSERT INTO `settings` ( `fieldName`, `fieldValue`) VALUES ('emailIsMandatory', '1');
