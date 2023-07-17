@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use Execption;
 use App\Models\Brand;
 use Illuminate\Http\Request;
@@ -84,7 +86,6 @@ class BrandController extends ApiController
         DB::commit();
 
         return $this->successResponse( new BrandResource($brand) , 200) ;
-
     }
 
     /**
@@ -95,5 +96,10 @@ class BrandController extends ApiController
         $brand->delete() ;
 
         return $this->successResponse(new BrandResource($brand) , 200) ;
+    }
+
+    public function products(Brand $brand)
+    {
+        return $this->successResponse( new BrandResource($brand->load('products')), 200) ;
     }
 }
